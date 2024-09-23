@@ -74,15 +74,16 @@ const getProtected = async (req, res) => {
 const logoutUser = async (req, res) => {
   const token = req.headers["authorization"]?.split(" ")[1]; // Get token from header
 
-  if (token) {
-    // Add the token to the blacklist
+  try {
     const newBlacklistEntry = new Blacklist({ token });
     await newBlacklistEntry.save();
+
+    res.json({ msg: "Logout successful" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
   }
-
-  res.json({ msg: "Logout successful" });
 };
-
 // Export the logoutUser function along with other controller functions
 module.exports = {
   registerUser,

@@ -42,7 +42,12 @@ router.post(
 // @route   POST api/users/logout
 // @desc    Logout user (clear token)
 // @access  Public
-router.post("/logout", logoutUser);
+router.post(
+  "/logout",
+  checkBlacklist,
+  passport.authenticate("jwt", { session: false }), // Authenticate token
+  logoutUser
+);
 
 // @route   GET api/users/protected
 // @desc    Protected route example
@@ -51,9 +56,7 @@ router.get(
   "/protected",
   checkBlacklist,
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.json({ msg: "Access granted to protected route", user: req.user });
-  }
+  getProtected
 );
 
 module.exports = router;

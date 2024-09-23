@@ -31,7 +31,7 @@ A Node.js-based backend API for user authentication, including registration, log
 │ └── passport.js # Passport JWT configuration
 │
 ├── /controllers
-│ └── userController.js # Contains the logic for register, login, and protected routes
+│ └── userController.js # Contains the logic for register, login,logout and protected routes
 │
 ├── /middleware
 │ └── blacklist.js # Middleware to check if the token is blacklisted
